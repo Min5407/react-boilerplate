@@ -1,5 +1,5 @@
 import { ab } from "./test";
-import "./style/index.css";
+import "./style/index.scss";
 
 const data = {
   age: 123,

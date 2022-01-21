@@ -10,9 +10,9 @@ module.exports = {
   devServer: {
     static: {
       directory: path.join(__dirname, "dist"),
-      hot: true,
     },
     port: 3000,
+    hot: true,
   },
 
   module: {
@@ -28,8 +28,13 @@ module.exports = {
 
       // css
       {
-        test: /\.css$/i,
-        use: [miniCssExtratPlugin.loader, "css-loader"],
+        test: /\.s?css$/i,
+        use: [
+          miniCssExtratPlugin.loader,
+          "css-loader",
+          "postcss-loader", // make sure to put postcss loader to go on top of sass-loader as it wont complile "//" comment in the scss file
+          "sass-loader",
+        ],
       },
     ],
   },
