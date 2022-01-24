@@ -5,3 +5,11 @@ body {
   background-color: variables.$bg;
   color: var(--text);
 }
+
+main {
+  display: flex;
+  gap: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

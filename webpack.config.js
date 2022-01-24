@@ -1,10 +1,14 @@
 const miniCssExtratPlugin = require("mini-css-extract-plugin");
 
+const isProduction = process.env.NODE_ENV === "production";
+
 const path = require("path");
 const mode = process.env.NODE_ENV || "development";
+const target = isProduction ? "browserslist" : "web";
 
 module.exports = {
   mode,
+  target,
   devtool: "source-map",
 
   devServer: {
@@ -28,7 +32,7 @@ module.exports = {
 
       // css
       {
-        test: /\.s?css$/i,
+        test: /\.(s[ac]|c)ss$/i, // regex => sass | scss | css
         use: [
           miniCssExtratPlugin.loader,
           "css-loader",
