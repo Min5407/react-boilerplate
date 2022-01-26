@@ -1,18 +1,5 @@
-import { ab } from "./test";
+import { render } from "react-dom";
+import App from "./App";
 import "./style/index.scss";
 
-const data = {
-  age: 123,
-  name: "Kate",
-};
-
-const data2 = {
-  ...data,
-  teach: true,
-};
-
-console.log(data);
-console.log(data2);
-console.log(123);
-
-ab();
+render(<App />, document.getElementById("root"));

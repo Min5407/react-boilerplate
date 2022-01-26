@@ -23,7 +23,7 @@ module.exports = {
     rules: [
       // babel
       {
-        test: /\.js$/,
+        test: /\.jsx?$/, // js or jsx
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -32,7 +32,7 @@ module.exports = {
 
       // css
       {
-        test: /\.(s[ac]|c)ss$/i, // regex => sass | scss | css
+        test: /\.(s[ac]|c)ss$/i, // reg => sass | scss | css
         use: [
           miniCssExtratPlugin.loader,
           "css-loader",
@@ -43,4 +43,8 @@ module.exports = {
     ],
   },
   plugins: [new miniCssExtratPlugin()],
+
+  resolve: {
+    extensions: [".js", ".jsx"], // allow to import file without typing the file format. Ex) import A from "./app.jsx" -> import A from "./app"
+  },
 };
