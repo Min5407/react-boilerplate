@@ -5,11 +5,12 @@ const isProduction = process.env.NODE_ENV === "production";
 const path = require("path");
 const mode = process.env.NODE_ENV || "development";
 const target = isProduction ? "browserslist" : "web";
+const devtool = isProduction ? false : "inline-source-map";
 
 module.exports = {
   mode,
   target,
-  devtool: "source-map",
+  devtool,
 
   devServer: {
     static: {
@@ -19,8 +20,15 @@ module.exports = {
     hot: true,
   },
 
+  output: {
+    assetModuleFilename: "images/[hash][ext][query]",
+  },
+
   module: {
     rules: [
+      // asset files
+      { test: /\.(png|jpe?g|gif|svg|mp4)$/i, type: "asset" },
+
       // babel
       {
         test: /\.jsx?$/, // js or jsx
@@ -34,7 +42,9 @@ module.exports = {
       {
         test: /\.(s[ac]|c)ss$/i, // reg => sass | scss | css
         use: [
-          miniCssExtratPlugin.loader,
+          {
+            loader: miniCssExtratPlugin.loader,
+          },
           "css-loader",
           "postcss-loader", // make sure to put postcss loader to go on top of sass-loader as it wont complile "//" comment in the scss file
           "sass-loader",
