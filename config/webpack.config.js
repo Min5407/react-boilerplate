@@ -6,6 +6,10 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const isProduction = process.env.NODE_ENV === "production";
 
+const rootPath = path.resolve(__dirname, "..");
+const distPath = path.resolve(rootPath, "dist");
+const srcPath = path.resolve(rootPath, "src");
+
 const mode = process.env.NODE_ENV || "development";
 const target = isProduction ? "browserslist" : "web";
 const devtool = isProduction ? false : "inline-source-map";
@@ -35,19 +39,26 @@ module.exports = {
     hot: true,
   },
 
+  entry: {
+    path: path.resolve(srcPath, "index.js"),
+  },
+
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(distPath, "dist"),
     assetModuleFilename: "images/[hash][ext][query]",
   },
 
   module: {
     rules: [
       // asset files
-      { test: /\.(png|jpe?g|gif|svg|mp4)$/i, type: "asset" },
+      {
+        test: /\.(?:ico|png|jpe?g|gif|svg|mp4|woff(2)?|eot|ttf|otf|svg)$/i,
+        type: "asset",
+      },
 
       // babel
       {
-        test: /\.jsx?$/, // js or jsx
+        test: /\.(tsx? | jsx?)$/, // js or jsx OR ts or tsx
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -68,8 +79,8 @@ module.exports = {
       },
     ],
   },
-  plugins,
 
+  plugins,
   resolve: {
     extensions: [".js", ".jsx"], // allow to import file without typing the file format. Ex) import A from "./app.jsx" -> import A from "./app"
   },
