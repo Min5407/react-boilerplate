@@ -40,7 +40,7 @@ module.exports = {
   },
 
   entry: {
-    path: path.resolve(srcPath, "index.js"),
+    path: path.resolve(srcPath, "index.tsx"),
   },
 
   output: {
@@ -82,6 +82,6 @@ module.exports = {
 
   plugins,
   resolve: {
-    extensions: [".js", ".jsx"], // allow to import file without typing the file format. Ex) import A from "./app.jsx" -> import A from "./app"
+    extensions: [".js", ".jsx", "ts", "tsx"], // allow to import file without typing the file format. Ex) import A from "./app.jsx" -> import A from "./app"
   },
 };
