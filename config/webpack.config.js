@@ -3,6 +3,7 @@ const miniCssExtratPlugin = require("mini-css-extract-plugin");
 const reactRefreshPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const htmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const babelConfig = require('./babel.config');
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -58,11 +59,9 @@ module.exports = {
 
       // babel
       {
-        test: /\.(tsx? | jsx?)$/, // js or jsx OR ts or tsx
+        test: /\.tsx?$/, // js or jsx OR ts or tsx
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-        },
+        use: { loader: 'babel-loader', options: babelConfig },
       },
 
       // css
@@ -82,6 +81,6 @@ module.exports = {
 
   plugins,
   resolve: {
-    extensions: [".js", ".jsx", "ts", "tsx"], // allow to import file without typing the file format. Ex) import A from "./app.jsx" -> import A from "./app"
+    extensions: [".js", ".jsx", ".ts", ".tsx"], // allow to import file without typing the file format. Ex) import A from "./app.jsx" -> import A from "./app"
   },
 };
